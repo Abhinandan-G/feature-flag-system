@@ -1,8 +1,7 @@
-require('dotenv').config();
-const pool = require('../config/db');
+require("dotenv").config();
+const pool = require("../config/db");
 
 const migrations = [
-
   // 1. Roles
   `CREATE TABLE IF NOT EXISTS roles (
     id SERIAL PRIMARY KEY,
@@ -69,13 +68,13 @@ const migrations = [
 async function runMigrations() {
   const client = await pool.connect();
   try {
-    console.log('Running migrations...');
+    console.log("Running migrations...");
     for (const sql of migrations) {
       await client.query(sql);
     }
-    console.log('✅ All migrations ran successfully');
+    console.log("All migrations ran successfully");
   } catch (err) {
-    console.error('❌ Migration failed:', err.message);
+    console.error("Migration failed:", err.message);
     throw err;
   } finally {
     client.release();
