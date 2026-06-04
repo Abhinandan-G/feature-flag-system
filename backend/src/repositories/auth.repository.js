@@ -53,20 +53,10 @@ const createUser = async ({ email, username, password, role_id, org_id }) => {
   return rows[0];
 };
 
-const findOrgByName = async (org_name) => {
-  const { rows } = await pool.query(
-    `SELECT * FROM organizations 
-     WHERE org_name = $1 AND deleted_at IS NULL`,
-    [org_name]
-  );
-  return rows[0];
-};
-
 module.exports = {
   findUserByEmailAndOrg,
   findUserByEmail,
   findOrgById,
   findRoleByName,
-  createUser,
-  findOrgByName
+  createUser
 };
