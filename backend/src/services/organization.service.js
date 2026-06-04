@@ -17,4 +17,8 @@ const getAllOrganizations = async () => {
   return orgs;
 };
 
-module.exports = { createOrganization, getAllOrganizations };
+const deleteOrganization = async(org_id) => {
+   return await organizationRepository.deleteOrganization(org_id);
+}
+
+module.exports = { createOrganization, getAllOrganizations,deleteOrganization };

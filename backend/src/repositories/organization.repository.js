@@ -28,8 +28,19 @@ const getAllOrganizations = async () => {
   return rows;
 };
 
+const deleteOrganization= async(org_id) => {
+  const { rows } = await pool.query(
+    `UPDATE organizations SET deleted_at = NOW() WHERE id = $1 AND deleted_at IS NULL
+     RETURNING id, org_name, deleted_at`,
+    [org_id]
+  );
+  return rows[0];
+}
+
+
 module.exports = {
   createOrganization,
   findOrgByName,
   getAllOrganizations,
+  deleteOrganization
 };

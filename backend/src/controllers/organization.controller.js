@@ -23,4 +23,19 @@ const getAllOrganizations = async (req, res) => {
   }
 };
 
-module.exports = { createOrganization, getAllOrganizations };
+const deleteOrganization = async(req,res) => {
+  try{
+    const {id} = req.params;
+
+    if(!id){
+      return sendError(res,'Organization id is required',400);
+    }
+    const org = await organizationService.deleteOrganization(id);
+    return sendSuccess(res,org,"Organization deleted successfully");
+  }
+  catch(error){
+    return sendError(res, error.message,error.status || 500);
+  }
+}
+
+module.exports = { createOrganization, getAllOrganizations, deleteOrganization };

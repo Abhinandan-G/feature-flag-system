@@ -9,5 +9,6 @@ router.use(authorize('superadmin'));
 
 router.post('/', organizationController.createOrganization);
 router.get('/', organizationController.getAllOrganizations);
+router.delete('/:id', organizationController.deleteOrganization);
 
 module.exports = router;
