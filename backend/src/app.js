@@ -4,6 +4,7 @@ const helmet = require("helmet");
 const morgan = require("morgan");
 const authRoutes = require('./routes/auth.routes');
 const organizationRoutes = require('./routes/organization.routes');
+const featureFlagRoutes = require('./routes/featureFlag.routes');
 
 const app = express();
 
@@ -21,6 +22,7 @@ app.get("/health", (req, res) => {
 // Routes
 app.use("/api/auth", authRoutes);
 app.use('/api/organizations', organizationRoutes);
+app.use('/api/features', featureFlagRoutes);
 
 // Global error handler
 app.use((err, req, res, next) => {
