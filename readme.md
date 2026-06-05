@@ -16,6 +16,62 @@ A SaaS-like feature flag management system with role-based access across three p
 
 ---
 
+## Database Schema
+
+All records in this schema are subjected to partial deletes. No data is permanently deleted.
+
+**roles**
+| Column | Type | Notes |
+|--------|------|-------|
+| id | SERIAL | Primary key |
+| role_name | VARCHAR(50) | Partial Unique index (where not deleted) |
+| created_at | TIMESTAMP | |
+| updated_at | TIMESTAMP | |
+| deleted_at | TIMESTAMP | Null if active |
+
+Seeded with three roles: `super_admin`, `org_admin`, `end_user`
+
+---
+
+**organizations**
+| Column | Type | Notes |
+|--------|------|-------|
+| id | SERIAL | Primary key |
+| org_name | VARCHAR(255) | Partial Unique index (where not deleted) |
+| created_at | TIMESTAMP | |
+| updated_at | TIMESTAMP | |
+| deleted_at | TIMESTAMP | Null if active |
+
+---
+
+**users**
+| Column | Type | Notes |
+|--------|------|-------|
+| id | SERIAL | Primary key |
+| email | VARCHAR(255) | Partial Unique index (where not deleted) |
+| username | VARCHAR(255) | |
+| password | VARCHAR(255) | bcrypt hashed |
+| role_id | INTEGER | FK → roles.id |
+| org_id | INTEGER | FK → organizations.id |
+| created_at | TIMESTAMP | |
+| updated_at | TIMESTAMP | |
+| deleted_at | TIMESTAMP | Null if active |
+
+---
+
+**feature_flags**
+| Column | Type | Notes |
+|--------|------|-------|
+| id | SERIAL | Primary key |
+| feature_name | VARCHAR(255) | Partial Unique per org (where not deleted) |
+| is_enabled | BOOLEAN | Default false |
+| org_id | INTEGER | FK → organizations.id |
+| created_at | TIMESTAMP | |
+| updated_at | TIMESTAMP | |
+| deleted_at | TIMESTAMP | Null if active |
+
+---
+
 ## Setup & Running
 
 ### Prerequisites
@@ -55,8 +111,9 @@ That's it. All services are now running.
 
 - All the credentials which are to be added in the .env file is given in a .env.template file in each project. Copy those and paste them in the .env file.
 
-
 ---
+
+## How to Use
 
 ### 1. Super Admin (localhost:3001)
 - Login with static credentials
@@ -98,6 +155,3 @@ Once the JWT expires the user is simply logged out. There is no refresh token me
 
 ### 7. No Pagination
 List endpoints (organizations, feature flags) return all records. For small datasets this is fine, but in production pagination, filtering, and sorting would be necessary.
-
-
-
