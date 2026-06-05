@@ -121,7 +121,7 @@
 }
 
 .flags-table th {
-  text-align: left;
+  text-align: center;
   padding: 0.6rem 0.8rem;
   background: #f0f4f8;
   color: #555;
@@ -132,6 +132,7 @@
   padding: 0.65rem 0.8rem;
   border-bottom: 1px solid #f0f0f0;
   color : black;
+  justify-content: center;
 }
 
 .flags-table tr:last-child td { border-bottom: none; }
@@ -147,7 +148,7 @@
 .badge--on  { background: #e8f5e9; color: #2e7d32; }
 .badge--off { background: #fce4ec; color: #c62828; }
 
-.actions { display: flex; gap: 0.4rem; }
+.actions { display: flex; gap: 0.4rem; align-content: center; }
 
 .btn-toggle {
   padding: 0.3rem 0.7rem;

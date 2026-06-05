@@ -181,7 +181,6 @@ const Dashboard = () => {
               <table className="flags-table">
                 <thead>
                   <tr>
-                    <th>ID</th>
                     <th>Feature Name</th>
                     <th>Status</th>
                     <th>Created At</th>
@@ -191,7 +190,6 @@ const Dashboard = () => {
                 <tbody>
                   {flags.map((flag) => (
                     <tr key={flag.id}>
-                      <td>{flag.id}</td>
                       <td>{flag.feature_name}</td>
                       <td>
                         <span className={`badge ${flag.is_enabled ? 'badge--on' : 'badge--off'}`}>

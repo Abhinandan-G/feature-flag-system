@@ -101,7 +101,7 @@
 }
 
 .org-table th {
-  text-align: left;
+  text-align: center;
   padding: 0.6rem 0.8rem;
   background: #f0f4f8;
   color: #555;

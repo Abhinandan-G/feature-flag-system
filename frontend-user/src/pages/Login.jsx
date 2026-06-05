@@ -8,9 +8,9 @@ import useToast from '../shared/hooks/useToast';
 import { validateLoginForm, hasErrors } from '../shared/validators/authValidators';
 
 const FIELDS = [
-  { name: 'email',    label: 'Email',    type: 'email',    placeholder: 'user@org.com' },
-  { name: 'password', label: 'Password', type: 'password', placeholder: '••••••••' },
-  { name: 'org_name', label: 'Organization Name', type: 'text', placeholder: 'Acme Corp' },
+  { name: 'email',    label: 'Email',    type: 'email' },
+  { name: 'password', label: 'Password', type: 'password' },
+  { name: 'org_name', label: 'Organization Name', type: 'text' },
 ];
 
 const Login = () => {

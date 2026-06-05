@@ -105,7 +105,6 @@ const Dashboard = () => {
               <table className="org-table">
                 <thead>
                   <tr>
-                    <th>ID</th>
                     <th>Name</th>
                     <th>Created At</th>
                     <th>Action</th>
@@ -114,7 +113,6 @@ const Dashboard = () => {
                 <tbody>
                   {orgs.map((org) => (
                     <tr key={org.id}>
-                      <td>{org.id}</td>
                       <td>{org.org_name}</td>
                       <td>{new Date(org.created_at).toLocaleDateString()}</td>
                       <td>
