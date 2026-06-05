@@ -61,6 +61,15 @@ const deleteFeatureFlag = async (id, org_id) => {
   return rows[0];
 };
 
+const findFeaturesByIdsAndOrg = async (feature_ids, org_id) => {
+  const { rows } = await pool.query(
+    `SELECT id, is_enabled FROM feature_flags
+     WHERE id = ANY($1::int[]) AND org_id = $2 AND deleted_at IS NULL`,
+    [feature_ids, org_id]
+  );
+  return rows;
+};
+
 module.exports = {
   createFeatureFlag,
   findFeatureByNameAndOrg,
@@ -68,4 +77,5 @@ module.exports = {
   getAllFeaturesByOrg,
   updateFeatureFlag,
   deleteFeatureFlag,
+  findFeaturesByIdsAndOrg
 };

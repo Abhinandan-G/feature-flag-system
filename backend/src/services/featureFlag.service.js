@@ -44,9 +44,20 @@ const deleteFeatureFlag = async (id, org_id) => {
   return deleted;
 };
 
+const checkFeatureFlags = async (feature_ids, org_id) => {
+  if (!Array.isArray(feature_ids) || feature_ids.length === 0) {
+    const error = new Error('feature_ids must be a non-empty array');
+    error.status = 400;
+    throw error;
+  }
+
+  return await featureFlagRepository.findFeaturesByIdsAndOrg(feature_ids, org_id);
+};
+
 module.exports = {
   createFeatureFlag,
   getAllFeatureFlags,
   updateFeatureFlag,
   deleteFeatureFlag,
+  checkFeatureFlags
 };

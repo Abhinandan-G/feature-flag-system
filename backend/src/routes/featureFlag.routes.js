@@ -3,12 +3,14 @@ const router = express.Router();
 const featureFlagController = require('../controllers/featureFlag.controller');
 const { authenticate, authorize } = require('../middlewares/auth.middleware');
 
-router.use(authenticate);
-router.use(authorize('admin'));
+// End user routes
+router.post('/check',authenticate, authorize('user'), featureFlagController.checkFeatureFlags);
+router.get('/my-org',authenticate, authorize('user'),  featureFlagController.getOrgFlagsForUser);
 
-router.post('/', featureFlagController.createFeatureFlag);
-router.get('/', featureFlagController.getAllFeatureFlags);
-router.put('/:id', featureFlagController.updateFeatureFlag);
-router.delete('/:id', featureFlagController.deleteFeatureFlag);
+// Admin routes
+router.post('/', authenticate, authorize('admin'), featureFlagController.createFeatureFlag);
+router.get('/', authenticate, authorize('admin'), featureFlagController.getAllFeatureFlags);
+router.put('/:id', authenticate, authorize('admin'), featureFlagController.updateFeatureFlag);
+router.delete('/:id',authenticate, authorize('admin'), featureFlagController.deleteFeatureFlag);
 
 module.exports = router;

@@ -71,9 +71,37 @@ const deleteFeatureFlag = async (req, res) => {
   }
 };
 
+const checkFeatureFlags = async (req, res) => {
+  try {
+    const { feature_ids } = req.body;
+    const org_id = req.user.org_id;
+
+    if (!feature_ids || !Array.isArray(feature_ids) || feature_ids.length === 0) {
+      return sendError(res, 'feature_ids must be a non-empty array', 400);
+    }
+
+    const result = await featureFlagService.checkFeatureFlags(feature_ids, org_id);
+    return sendSuccess(res, result, 'Feature flag statuses fetched');
+  } catch (err) {
+    return sendError(res, err.message, err.status || 500);
+  }
+};
+
+const getOrgFlagsForUser = async (req, res) => {
+  try {
+    const org_id = req.user.org_id;
+    const flags = await featureFlagService.getAllFeatureFlags(org_id);
+    return sendSuccess(res, flags, 'Feature flags fetched');
+  } catch (err) {
+    return sendError(res, err.message, err.status || 500);
+  }
+};
+
 module.exports = {
   createFeatureFlag,
   getAllFeatureFlags,
   updateFeatureFlag,
   deleteFeatureFlag,
+  checkFeatureFlags,
+  getOrgFlagsForUser
 };
