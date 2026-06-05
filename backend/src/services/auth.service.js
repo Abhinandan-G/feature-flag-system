@@ -24,13 +24,7 @@ const superAdminLogin = async ({ email, password }) => {
 const adminSignup = async ({ email, username, password, org_name }) => {
   
   const org = await validateAndGetOrg(org_name);
-
-  const existingUser = await authRepository.findUserByEmailAndOrg(email, org.id);
-  if (existingUser) {
-    const error = new Error('Email already registered in this organization');
-    error.status = 409;
-    throw error;
-  }
+  await checkForExistingUserWhileSignup(email,org);
   const role = await authRepository.findRoleByName('org_admin');
 
   const hashedPassword = await bcrypt.hash(password, 10);
@@ -85,14 +79,7 @@ const adminLogin = async ({ email, password, org_name }) => {
 const endUserSignup = async ({ email, username, password, org_name }) => {
 
   const org = await validateAndGetOrg(org_name);
-
-  const existingUser = await authRepository.findUserByEmailAndOrg(email, org.id);
-  if (existingUser) {
-    const error = new Error('Email already registered in this organization');
-    error.status = 409;
-    throw error;
-  }
-
+  await checkForExistingUserWhileSignup(email,org);
   const role = await authRepository.findRoleByName('end_user');
   const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -152,6 +139,27 @@ const validateAndGetOrg = async (org_name) => {
   }
 
   return org;
+}
+
+const checkForExistingUserWhileSignup = async(email,org)=>{
+   const existingUser = await authRepository.findUserByEmail(email);
+
+  if(existingUser){
+    const existingUserOrgId = existingUser.org_id;
+
+    let errorMessage;
+
+    if(existingUserOrgId === org.id)
+      errorMessage = "User with this email is already registered in this organization";
+    
+    else if(existingUserOrgId !== org.id)
+        errorMessage = "User with this email is already registered in another organization";
+
+    const error = new Error(errorMessage || "User is already registered");
+    error.status = 409;
+    throw error;
+  }
+
 }
 
 module.exports = { superAdminLogin, adminSignup, adminLogin, endUserSignup, endUserLogin };

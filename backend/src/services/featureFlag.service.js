@@ -16,15 +16,17 @@ const getAllFeatureFlags = async (org_id) => {
 };
 
 const updateFeatureFlag = async ({ id, feature_name, is_enabled, org_id }) => {
-  const existingByName = await featureFlagRepository.findFeatureByNameAndOrg(feature_name, org_id);
+  const existingFeatureFlag = await featureFlagRepository.findFeatureByIdAndOrg(id, org_id);
 
-  if(!existingByName){
+  if(!existingFeatureFlag){
     const error = new Error("Feature flag does not exists");
     error.status = 400;
     throw error;
   }
 
-  if (existingByName && existingByName.id !== parseInt(id)) {
+  const existingFeatureFlagByName = await featureFlagRepository.findFeatureByNameAndOrg(feature_name,org_id);
+
+  if (existingFeatureFlagByName && existingFeatureFlagByName.id !== parseInt(id)) {
     const error = new Error('Another feature flag with this name already exists in your organization');
     error.status = 409;
     throw error;

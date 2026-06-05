@@ -111,6 +111,7 @@
 .org-table td {
   padding: 0.65rem 0.8rem;
   border-bottom: 1px solid #f0f0f0;
+  color : black
 }
 
 .org-table tr:last-child td { border-bottom: none; }
