@@ -8,10 +8,10 @@ import useToast from '../shared/hooks/useToast';
 import { validateSignupForm, hasErrors } from '../shared/validators/authValidators';
 
 const FIELDS = [
-  { name: 'username', label: 'Username', type: 'text',     placeholder: 'johndoe' },
-  { name: 'email',    label: 'Email',    type: 'email',    placeholder: 'admin@org.com' },
-  { name: 'password', label: 'Password', type: 'password', placeholder: '••••••••' },
-  { name: 'org_name', label: 'Organization Name', type: 'text', placeholder: 'Acme Corp' },
+  { name: 'username', label: 'Username', type: 'text' },
+  { name: 'email',    label: 'Email',    type: 'email' },
+  { name: 'password', label: 'Password', type: 'password'},
+  { name: 'org_name', label: 'Organization Name', type: 'text'},
 ];
 
 const Signup = () => {
