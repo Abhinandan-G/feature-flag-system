@@ -44,5 +44,44 @@ services:
       postgres:
         condition: service_healthy
 
+  frontend-superadmin:
+    build: ./frontend-superadmin
+    container_name: flag_superadmin
+    restart: always
+    ports:
+      - "3001:5173"
+    volumes:
+      - ./frontend-superadmin:/app
+      - /app/node_modules
+      - ./frontend-shared:/app/src/shared
+    depends_on:
+      - backend
+
+  frontend-admin:
+    build: ./frontend-admin
+    container_name: flag_admin
+    restart: always
+    ports:
+      - "3002:5173"
+    volumes:
+      - ./frontend-admin:/app
+      - /app/node_modules
+      - ./frontend-shared:/app/src/shared  
+    depends_on:
+      - backend
+
+  frontend-user:
+    build: ./frontend-user
+    container_name: flag_user
+    restart: always
+    ports:
+      - "3003:5173"
+    volumes:
+      - ./frontend-user:/app
+      - /app/node_modules
+      - ./frontend-shared:/app/src/shared
+    depends_on:
+      - backend
+
 volumes:
   postgres_data:
