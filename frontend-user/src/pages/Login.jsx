@@ -1,0 +1,69 @@
+import { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+import { loginUser } from '../api/features.api';
+import AuthForm from '../shared/components/AuthForm';
+import Toast from '../shared/components/Toast';
+import useToast from '../shared/hooks/useToast';
+import { validateLoginForm, hasErrors } from '../shared/validators/authValidators';
+
+const FIELDS = [
+  { name: 'email',    label: 'Email',    type: 'email',    placeholder: 'user@org.com' },
+  { name: 'password', label: 'Password', type: 'password', placeholder: '••••••••' },
+  { name: 'org_name', label: 'Organization Name', type: 'text', placeholder: 'Acme Corp' },
+];
+
+const Login = () => {
+  const { login } = useAuth();
+  const navigate = useNavigate();
+  const { toasts, showToast, removeToast } = useToast();
+
+  const [values, setValues] = useState({ email: '', password: '', org_name: '' });
+  const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
+
+  const handleChange = (e) => {
+    setValues((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    setErrors((prev) => ({ ...prev, [e.target.name]: '' }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const validationErrors = validateLoginForm(values);
+    if (hasErrors(validationErrors)) {
+      setErrors(validationErrors);
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const res = await loginUser(values);
+      login(res.data.data.token);
+      showToast('Login successful', 'success');
+      navigate('/dashboard');
+    } catch (err) {
+      showToast(err.message, 'error');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <>
+      <Toast toasts={toasts} removeToast={removeToast} />
+      <AuthForm
+        title="User Login"
+        fields={FIELDS}
+        values={values}
+        errors={errors}
+        onChange={handleChange}
+        onSubmit={handleSubmit}
+        loading={loading}
+        submitLabel="Login"
+        footer={<>Don't have an account? <Link to="/signup">Sign up</Link></>}
+      />
+    </>
+  );
+};
+
+export default Login;

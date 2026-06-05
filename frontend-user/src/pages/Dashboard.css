@@ -1,0 +1,145 @@
+.dashboard {
+  min-height: 100vh;
+  background: #f4f6f8;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: #6a1b9a;
+  color: #fff;
+}
+
+.dashboard-header h1 { font-size: 1.2rem; }
+
+.header-sub {
+  font-size: 0.8rem;
+  opacity: 0.85;
+  display: block;
+  margin-top: 0.15rem;
+}
+
+.dashboard-main {
+  padding: 2rem;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.card h2 {
+  margin-bottom: 0.4rem;
+  font-size: 1.1rem;
+  color: #1a1a1a;
+}
+
+.hint {
+  font-size: 0.85rem;
+  color: #777;
+  margin-bottom: 1.25rem;
+}
+
+.flags-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-bottom: 1.5rem;
+}
+
+.flag-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.7rem 1rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.flag-item:hover { background: #f9f9f9; }
+
+.flag-left {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.flag-left input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.flag-name {
+  font-size: 0.95rem;
+  color: #1a1a1a;
+}
+
+.badge {
+  padding: 0.2rem 0.65rem;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.badge--on  { background: #e8f5e9; color: #2e7d32; }
+.badge--off { background: #fce4ec; color: #c62828; }
+
+.submit-row {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.btn-primary {
+  padding: 0.65rem 1.4rem;
+  background: #6a1b9a;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: background 0.2s;
+}
+
+.btn-primary:hover:not(:disabled) { background: #4a148c; }
+.btn-primary:disabled { background: #90a4ae; cursor: not-allowed; }
+
+.btn-secondary {
+  padding: 0.65rem 1.2rem;
+  background: #fff;
+  color: #555;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.btn-secondary:hover { background: #f5f5f5; }
+
+.btn-logout {
+  padding: 0.5rem 1rem;
+  background: transparent;
+  color: #fff;
+  border: 1px solid #fff;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.btn-logout:hover { background: rgba(255,255,255,0.15); }
+
+.state-msg {
+  color: #888;
+  font-size: 0.9rem;
+  text-align: center;
+  padding: 1.5rem 0;
+}
